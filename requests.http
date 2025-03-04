@@ -1,0 +1,7 @@
+# POST with user's full name
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "fullname": "Christopher King"
+}
