@@ -1,7 +1,11 @@
-# POST with user's full name
+# POST with full user
 POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-  "fullname": "Christopher King"
+  "fullName": "Christopher King",
+  "emailAddress": "c@king.com",
+  "password": "asdASD123",
+  "createdDate": "01-01-2025T00:00:00",
+  "type": "student"
 }
