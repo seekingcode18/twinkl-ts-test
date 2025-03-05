@@ -5,3 +5,8 @@ export interface User {
   createdDate: string;
   type: string;
 }
+
+export interface ValidationResult {
+  code: number,
+  message?: string
+}
