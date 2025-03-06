@@ -6,11 +6,11 @@ const createUser = (req: Request<{}, {}, User>, res: Response) => {
   const validationResult = validateUserInput(req.body);
 
   if (validationResult.code == 400) {
-    res.status(400).send(validationResult.message);
+    res.status(400).json({ message: validationResult.message });
   }
 
   if (validationResult.code == 200) {
-    res.status(200).send("User received");
+    res.status(200).json({ message: "User received" });
   }
 }
 
