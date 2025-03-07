@@ -9,3 +9,8 @@ Content-Type: application/json
   "createdDate": "01-01-2025T00:00:00",
   "type": "student"
 }
+
+###
+
+# GET user by id
+GET http://localhost:3000/users/2
