@@ -114,3 +114,17 @@ describe('POST /users', () => {
     });
   })
 })
+
+describe('GET /users', () => {
+  test('returns 200 response given a user', async () => {
+    const response = await request(app).get('/users/1');
+
+    expect(response.statusCode).toBe(200);
+  })
+
+  test('returns 404 response given no user', async () => {
+    const response = await request(app).get('/users/0');
+
+    expect(response.statusCode).toBe(404);
+  })
+})

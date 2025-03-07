@@ -4,6 +4,7 @@ import { User } from '../types/interfaces.ts';
 import Database from 'better-sqlite3';
 import { users } from '../db/schema.ts';
 import { drizzle } from 'drizzle-orm/better-sqlite3';
+import { eq } from 'drizzle-orm';
 
 const sqlite = new Database('sqlite.db');
 const db = drizzle(sqlite);
@@ -20,13 +21,13 @@ const createUser = async (req: Request<{}, {}, User>, res: Response) => {
       fullName: req.body.fullName,
       emailAddress: req.body.emailAddress,
       password: req.body.password,
-      createDate: req.body.createdDate,
+      createdDate: req.body.createdDate,
       type: req.body.type,
     }).returning({
       id: users.id,
       fullName: users.fullName,
       emailAddress: users.emailAddress,
-      createDate: users.createDate,
+      createdDate: users.createdDate,
       type: users.type,
     });
 
@@ -34,6 +35,18 @@ const createUser = async (req: Request<{}, {}, User>, res: Response) => {
   }
 }
 
+const getUser = async (req: Request<{ id: number }, {}>, res: Response<User | { message: string }>) => {
+  const id = req.params.id;
+  const [user] = await db.select().from(users).where(eq(users.id, id));
+
+  if (user) {
+    res.status(200).json(user);
+  } else {
+    res.status(404).json({ message: `User not found` });
+  }
+}
+
 export {
-  createUser
+  createUser,
+  getUser,
 }
