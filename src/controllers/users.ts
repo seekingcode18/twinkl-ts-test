@@ -16,15 +16,21 @@ const createUser = async (req: Request<{}, {}, User>, res: Response) => {
   }
 
   if (validationResult.code == 200) {
-    await db.insert(users).values({
+    const [user] = await db.insert(users).values({
       fullName: req.body.fullName,
       emailAddress: req.body.emailAddress,
       password: req.body.password,
       createDate: req.body.createdDate,
       type: req.body.type,
+    }).returning({
+      id: users.id,
+      fullName: users.fullName,
+      emailAddress: users.emailAddress,
+      createDate: users.createDate,
+      type: users.type,
     });
 
-    res.status(200).json({ message: "User received" });
+    res.status(200).json({ message: "User received", user });
   }
 }
 
